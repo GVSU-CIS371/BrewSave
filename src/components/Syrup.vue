@@ -1,50 +1,25 @@
 <template>
-  <div :style="dynamicStyle" class="syrup"></div>
+  <div
+    class="syrup"
+    :style="{
+      background: `repeating-linear-gradient(
+        45deg,
+        ${currentSyrup || 'transparent'},
+        ${currentSyrup || 'transparent'} 10px,
+        rgba(225, 207, 149, 1) 10px,
+        rgba(225, 207, 149, 1) 20px
+      )`,
+    }"
+  ></div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-type Prop = {
-  name: string;
-};
-type Syrup = {
-  name: string;
-  color: string;
-};
-const Syrups: Syrup[] = [
-  {
-    name: "Vanilla",
-    color: "#FFEFD5",
-  },
-  {
-    name: "Caramel",
-    color: "#DAA520",
-  },
-  {
-    name: "Hazelnut",
-    color: "#6B4423",
-  },
-];
-
-const props = withDefaults(defineProps<Prop>(), {
-  name: "Vanilla",
-});
-const dynamicStyle = computed(() => {
-  const syrup = Syrups.find((syrup) => syrup.name === props.name);
-  return {
-    background: `repeating-linear-gradient(
-      45deg,
-      ${syrup?.color},
-      ${syrup?.color} 10px,
-      rgba(225, 207, 149, 1) 10px,
-      rgba(225, 207, 149, 1) 20px
-    )`,
-  };
-});
+import { currentSyrup } from "../stores/beverage";
 </script>
 <style lang="scss" scoped>
 .syrup {
   transform: translateY(400%);
+  background-color: #c6c6c6;
   position: relative;
   width: 100%;
   height: 20%;

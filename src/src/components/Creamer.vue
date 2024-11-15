@@ -1,15 +1,36 @@
 <template>
   <div class="froth">
-    <div
-      v-for=" in 5"
-      class="foam"
-      :style="`background-color: ${currentCreamer || 'transparent'}`"
-    ></div>
+    <div v-for=" in 5" class="foam"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { creamers, currentCreamer } from "../stores/beverage";
+import { computed } from "vue";
+type Prop = {
+  name: string;
+};
+type Creamer = {
+  name: string;
+  color: string;
+};
+const Creamers: Creamer[] = [
+  {
+    name: "Milk",
+    color: "AliceBlue",
+  },
+  {
+    name: "Cream",
+    color: "#F5F5DC",
+  },
+  {
+    name: "Half & Half",
+    color: "#FFFACD",
+  },
+];
+
+const props = withDefaults(defineProps<Prop>(), {
+  name: "Milk",
+});
 </script>
 <style lang="scss" scoped>
 .froth {
