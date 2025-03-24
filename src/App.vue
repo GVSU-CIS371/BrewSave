@@ -1,79 +1,32 @@
 <template>
   <div>
-    <Beverage :isIced="currentTemp === 'Cold'" />
+    <Beverage :isIced="beverageStore.currentTemp === 'Cold'" />
     <ul>
       <li>
-        <template v-for="temp in temps" :key="temp">
+        <template v-for="temp in beverageStore.temps" :key="temp">
           <label>
             <input
               type="radio"
               name="temperature"
               :id="`r${temp}`"
               :value="temp"
-              v-model="currentTemp"
+              v-model="beverageStore.currentTemp"
             />
             {{ temp }}
           </label>
         </template>
       </li>
-      <li>
-        <template v-for="b in bases" :key="b.id">
-          <label>
-            <input
-              type="radio"
-              name="base"
-              :id="`r${b.id}`"
-              :value="b.color"
-              v-model="currentBase"
-            />
-            {{ b.name }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <template v-for="c in creamers" :key="c.id">
-          <label>
-            <input
-              type="radio"
-              name="creamer"
-              :id="`r${c.id}`"
-              :value="c.color"
-              v-model="currentCreamer"
-            />
-            {{ c.name }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <template v-for="s in syrups" :key="s.id">
-          <label>
-            <input
-              type="radio"
-              name="syrup"
-              :id="`r${s.id}`"
-              :value="s.color"
-              v-model="currentSyrup"
-            />
-            {{ s.name }}
-          </label>
-        </template>
-      </li>
     </ul>
+    <input type="text" placeholder="Beverage Name" />
+    <button>🍺 Make Beverage</button>
   </div>
+  <div id="beverage-container" style="margin-top: 20px"></div>
 </template>
 
 <script setup lang="ts">
 import Beverage from "./components/Beverage.vue";
-import {
-  temps,
-  bases,
-  creamers,
-  syrups,
-  currentTemp,
-  currentBase,
-  currentCreamer,
-  currentSyrup,
-} from "./stores/beverage";
+import { useBeverageStore } from "./stores/beverageStore";
+const beverageStore = useBeverageStore();
 </script>
 
 <style lang="scss">
